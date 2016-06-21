@@ -1,0 +1,54 @@
+If you use pyTVDI in any academic work then you *must* cite the following papers:
+
+Sandholt, I.; Rasmussen, K. & Andersen, J. A simple interpretation of the surface temperature/vegetation 
+index space for assessment of surface moisture status. Remote Sensing of Environment , 2002, 79, 213 - 224.
+
+In BibTeX format:
+
+@Article{Sandholt2002,
+  Title                    = {A simple interpretation of the surface temperature/vegetation index space for assessment of surface moisture status },
+  Author                   = {Inge Sandholt and Kjeld Rasmussen and Jens Andersen},
+  Journal                  = {Remote Sensing of Environment },
+  Year                     = {2002},
+  Note                     = {Recent Advances in Remote Sensing of Biophysical Variables },
+  Number                   = {2–3},
+  Pages                    = {213 - 224},
+  Volume                   = {79},
+  Doi                      = {http://dx.doi.org/10.1016/S0034-4257(01)00274-7},
+  ISSN                     = {0034-4257},
+  Url                      = {http://www.sciencedirect.com/science/article/pii/S0034425701002747}
+}
+
+If you use **Priestley-Taylor Evaporative Fraction approach** model you *must* also cite the following papers.
+
+Stisen S.; Sandholt I.; Nørgaard A.; Fensholt R. & Jensen, K. Combining the triangle method with thermal inertia 
+to estimate regional evapotranspiration - Applied to MSG-SEVIRI data in the Senegal River basin. Remote Sensing of Environment, 2008, 112, 1242-1255.
+
+de Tomás, A.; Nieto, H.; Guzinski, R.; Salas, J.; Sandholt, I. & Berliner, P. Validation and scale dependencies 
+of the triangle method for the evaporative fraction estimation over heterogeneous areas. Remote Sensing of Environment , 2014, 152, 493 - 511.
+
+In BibTeX format:
+
+@Article{Stisen2008,
+  Title                    = {Combining the triangle method with thermal inertia to estimate regional evapotranspiration - Applied to MSG-SEVIRI data in the Senegal River basin},
+  Author                   = {Stisen, S., and Sandholt, I., and N\{o}rgaard, A., and Fensholt, R., and Jensen, K.H.},
+  Journal                  = {Remote Sensing of Environment},
+  Year                     = {2008},
+  Number                   = {3},
+  Pages                    = {1242-1255},
+  Volume                   = {112},
+  Url                      = {http://www.scopus.com/inward/record.url?eid=2-s2.0-39749202198&partnerID=40&md5=cb9f4cfce51d67341f4f9329706c8c3e}
+}
+
+@Article{deTomás2014,
+  Title                    = {Validation and scale dependencies of the triangle method for the evaporative fraction estimation over heterogeneous areas },
+  Author                   = {Alberto de Tomás and Héctor Nieto and Radoslaw Guzinski and Javier Salas and Inge Sandholt and Pedro Berliner},
+  Journal                  = {Remote Sensing of Environment },
+  Year                     = {2014},
+  Pages                    = {493 - 511},
+  Volume                   = {152},
+  Doi                      = {http://dx.doi.org/10.1016/j.rse.2014.06.028},
+  ISSN                     = {0034-4257},
+  Url                      = {http://www.sciencedirect.com/science/article/pii/S0034425714002594}
+}
+

@@ -1,0 +1,34 @@
+# Input files
+ndvi_file=./Input/NDVI_example.tif
+ts_file=./Input/LST_example.tif
+CLM_file=./Input/Mask_example.tif
+delta_file=1.26
+
+# Output folder
+output_dir=./Output/
+
+# Additional I/O Options
+ndvi_mult=1.0
+ts_mult=1.0
+delta_mult=1.0
+
+# Region Of Interest Options
+geoflag=2
+x_pix=0.0
+y_pix=0.0
+dim_ns=0.0
+dim_nl=0.0
+moving_window=0
+window_size_x=0.0
+window_size_y=0.0
+
+# Edge Retrieval Algorithm parameters
+dry_edge=0
+ts_min=0
+output=0
+ndvi_step=0.01
+ndvi_lower_limit=0.1
+ts_min_params=20.0
+min_ndvi=0.1
+max_fi=1.26
+interpolation=1
