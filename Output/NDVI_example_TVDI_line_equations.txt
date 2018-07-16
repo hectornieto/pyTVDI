@@ -1,0 +1,2 @@
+image 	 dry_edge_intercept 	 dry_edge_slope 	 wet_edge_intercept	 wet_edge_slope 	 r^2 	 dry_edge_points 	 total_points 	 points_per_bin 	 ndvi_range_ratio
+./Output//NDVI_example_TVDI_cols_0_164_rows_0_464.png	357.69673489741643	-88.20000243645904	299.3644088745117	0	-0.978146361384	46.0	151604.0	2659.71929825	0.794033762056

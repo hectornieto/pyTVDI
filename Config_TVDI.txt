@@ -1,7 +1,6 @@
 # Input files
-ndvi_file=./Input/NDVI_example.tif
-ts_file=./Input/LST_example.tif
-CLM_file=./Input/Mask_example.tif
+ndvi_file=./Input/NDVI_resampled.tif
+ts_file=./Input/ExampleImage_NDVI.tif
 delta_file=1.26
 
 # Output folder
@@ -9,7 +8,7 @@ output_dir=./Output/
 
 # Additional I/O Options
 ndvi_mult=1.0
-ts_mult=1.0
+ts_mult=100.0
 delta_mult=1.0
 
 # Region Of Interest Options
@@ -23,7 +22,7 @@ window_size_x=0.0
 window_size_y=0.0
 
 # Edge Retrieval Algorithm parameters
-dry_edge=0
+dry_edge=1
 ts_min=0
 output=0
 ndvi_step=0.01
