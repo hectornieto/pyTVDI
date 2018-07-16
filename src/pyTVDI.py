@@ -2,6 +2,9 @@
 Main TVDI program
 Adapted for Python by Hector Nieto 
 ''' 
+
+import numpy as np
+
 #==============================================================================
 # CONSTANTS
 #==============================================================================
@@ -447,11 +450,11 @@ def calc_triangle_simple(ndvi, ts, ndvi_step, ndvi_lower_limit, ts_min_method,
     #fill into one dimensional array
     for j in arange(steps):
         ndvi_val_new = ndvi_step + ndvi_val_old
-        ndvi_ind=where(logical_and(ndvi >= ndvi_val_old,ndvi < ndvi_val_new))
+        ndvi_ind = logical_and(ndvi >= ndvi_val_old,ndvi < ndvi_val_new)
        
         
         #need at least two points in each bin
-        if size(ndvi_ind) >=2:
+        if np.sum(ndvi_ind) >=2:
             ts_max_arr[j] = amax(ts[ndvi_ind])
             ts_min_arr[j] = amin(ts[ndvi_ind])
         else:
@@ -464,8 +467,8 @@ def calc_triangle_simple(ndvi, ts, ndvi_step, ndvi_lower_limit, ts_min_method,
 #==============================================================================
 #     Making arrays where points where ts_max is identically zero are removed
 #==============================================================================
-    zeroindex = where(ts_max_arr != 0)
-    if size(zeroindex)==0: return lin_fit,ts_min,fit_stats
+    zeroindex = ts_max_arr != 0
+    if np.sum(zeroindex)==0: return lin_fit,ts_min,fit_stats
     ts_nozero = ts_max_arr[zeroindex]
     ndvi_nozero = ndvi_arr[zeroindex]
   
@@ -482,19 +485,18 @@ def calc_triangle_simple(ndvi, ts, ndvi_step, ndvi_lower_limit, ts_min_method,
     ts_min = mean(ts_min_arr[ts_min_arr > 0])
   
     #Determine size of reduced arrays
-    array_size=size(ts_first)
+    array_size=int(size(ts_first))
   
     #Finding maximum LST cut-off
-    max_plot_ind=where(ts_first == amax(ts_first))
-    max_plot_ind = amin(max_plot_ind)
+    max_plot_ind = np.argmax(ts_first)
 
     # Filling arrays after maximum LST value cut-off
     ts_second = ts_first[max_plot_ind:array_size]
     ndvi_second = ndvi_first[max_plot_ind:array_size]
   
     #Cutting off points lower than the mean minimum temperature
-    ts_min_index=where(ts_second > ts_min)
-    if size(ts_min_index) > 0:
+    ts_min_index = ts_second > ts_min
+    if np.any(ts_min_index):
         ts_third=ts_second[ts_min_index]
         ndvi_third = ndvi_second[ts_min_index]
     else:        
@@ -562,17 +564,17 @@ def calc_triangle_tang(ndvi, ts, ndvi_step, ndvi_lower_limit, ts_min_method,
             
             #step (ii)
             #need at least two points in each bin
-            ndvi_ind=where(logical_and(ndvi >= ndvi_val_old,ndvi < ndvi_val_new))
-            if size(ndvi_ind)>2:
-                subint_max_ts[i]=amax(ts[ndvi_ind])
+            ndvi_ind = logical_and(ndvi >= ndvi_val_old,ndvi < ndvi_val_new)
+            if np.sum(ndvi_ind)>2:
+                subint_max_ts[i] = amax(ts[ndvi_ind])
             else:
                 subint_max_ts[i] = nan
 
             ndvi_val_old = ndvi_val_new
     
         #step (iii)
-        not_NaN=where(isfinite(subint_max_ts))
-        if size(not_NaN)==0:
+        not_NaN = isfinite(subint_max_ts)
+        if np.sum(not_NaN)==0:
             mean_max_ts = nan
             std_max_ts = nan
         else:
@@ -604,30 +606,29 @@ def calc_triangle_tang(ndvi, ts, ndvi_step, ndvi_lower_limit, ts_min_method,
         #finding ts_min_arr is not in the Tang algorithm
         #only do this if ts_min is set using the mean or median methods
         if ts_min_method == cMEAN or ts_min_method == cMEDIAN:
-            ndvi_ind=where((ndvi >= ndvi_val_old-ndvi_step) & (ndvi < ndvi_val_old))
-            if size(ndvi_ind)>0:
+            ndvi_ind=np.logical_and(ndvi >= ndvi_val_old-ndvi_step, ndvi < ndvi_val_old)
+            if np.any(ndvi_ind):
                 ts_min_arr[j] = amin(ts[ndvi_ind])
 
   
     #the following is not part of the original Tang algorithm
     #remove all the invalid values before fitting the line
-    valid_pix = where(ts_max_arr > 0)
+    valid_pix = ts_max_arr > 0
     # need at least two pixels to fit a straight line
     if size(valid_pix) <= 1: return lin_fit,ts_min,fit_stats
     ts_max_arr = ts_max_arr[valid_pix]
     ndvi_arr = ndvi_arr[valid_pix]
     
     #Finding maximum LST cut-off
-    max_plot_ind=where(ts_max_arr == amax(ts_max_arr))
-    max_plot_ind = amin(max_plot_ind)                                        
+    max_plot_ind = np.argmax(ts_max_arr)
   
     #Filling arrays after maximum LST value cut-off                     
     ts_max_arr = ts_max_arr[max_plot_ind:]                     
     ndvi_arr = ndvi_arr[max_plot_ind:] 
     
     #need at least to pixels to fit a straight line
-    valid_pix = where(ts_max_arr > 0)
-    if size(valid_pix) <= 1 : return lin_fit,ts_min,fit_stats
+    valid_pix = ts_max_arr > 0
+    if np.sum(valid_pix) <= 1 : return lin_fit,ts_min,fit_stats
     
     while True:
 
@@ -654,7 +655,7 @@ def calc_triangle_tang(ndvi, ts, ndvi_step, ndvi_lower_limit, ts_min_method,
     #set output name
     if plot_out_file: 
         #call plot routine . Create Scatter plot
-        ts_nonzero = where(ts > 0)
+        ts_nonzero = ts > 0
         yrange = [amin(ts[ts_nonzero]), amax(ts)]
         plot_pro(plot_out_file, ndvi, ts, ndvi_arr, ts_max_arr, ts_min, lin_fit, yrange)
 
