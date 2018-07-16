@@ -46,19 +46,19 @@ roi_inf = {'geoflag':cWHOLE_IMG,
                'moving_window':cNO_WINDOW,
                'window_size_x':0,'window_size_y':0 }
 
-alg_inf = {'dry_edge': cTANG, 
+alg_inf = {'dry_edge': cSIMPLE, 
                'ts_min': cMEAN, 
                'output': cTVDI, 
-               'dry_edge_params': [0.005, 0.6], # [ndvi_step, ndvi_lower_limit]
+               'dry_edge_params': [0.01, 0.1], # [ndvi_step, ndvi_lower_limit]
                'ts_min_params': 20, # see constants file for explenation
                'ts_min_file':"", 
                'output_params': [0.1, 0.9, 1.26, cLINEAR] } #[min_ndvi, max_ndvi, max_fi, use_1/delat_for_max_fi, interpolation] 
 #default io options
-io_inf = {'ndvi_file': '/media/hector/TOSHIBA EXT/Projects/UAV_ET/Database/Cardena/Hyper/20150429/L3/20150429_NDVI_0p7.tif',
-              'ts_file': '/media/hector/TOSHIBA EXT/Projects/UAV_ET/Database/Cardena/TIR/20150429/L3/20150429_thermal_subset.tif', 
+io_inf = {'ndvi_file': '/media/hector/TOSHIBA EXT/Data/Projects/LiveFMC/Flight/Hyper/L4/NDVI_resampled_2.tif',
+              'ts_file': '/media/hector/TOSHIBA EXT/Data/Projects/LiveFMC/Flight/TIR/L3/160608_adamuz_thermal_cut_lowRes.tif', 
               'CLM_file': '',
               'delta_file': '',
-              'output_dir': '/home/hector/',
+              'output_dir': '/media/hector/TOSHIBA EXT/Data/Projects/LiveFMC/Flight/TIR/L4/',
              'ndvi_mult': 1,
              'ts_mult': 100,
              'delta_mult': 1} 
@@ -438,7 +438,7 @@ def calc_triangle_simple(ndvi, ts, ndvi_step, ndvi_lower_limit, ts_min_method,
 
         return lin_fit,ts_min,fit_stats
 
-    steps = floor(range_ndvi/ndvi_step)
+    steps = int(floor(range_ndvi/ndvi_step))
     ndvi_val_old = ndvi_lower_limit
     ts_max_arr = zeros(steps)
     ts_min_arr = zeros(steps)
@@ -544,7 +544,7 @@ def calc_triangle_tang(ndvi, ts, ndvi_step, ndvi_lower_limit, ts_min_method,
         print('Range in VI sample is too small, skipping file')
         return lin_fit,ts_min,fit_stats
 
-    intervals = floor(range_ndvi/ndvi_step)
+    intervals = int(floor(range_ndvi/ndvi_step))
     subintervals = 5
     ts_max_arr = zeros(intervals)
     ts_min_arr = zeros(intervals)
